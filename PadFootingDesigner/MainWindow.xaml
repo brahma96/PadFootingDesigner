@@ -168,7 +168,42 @@
                     </Grid>
                 </GroupBox>
                 <GroupBox x:Name="materialGroupBox" Header="Materials" Margin="5" Visibility="{Binding ElementName=materials, Path=IsSelected, Converter={StaticResource selectedItemToTemplateVisibilityConverter} }">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
 
+                        <Grid Grid.Row="0" Margin="5">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0" Margin="0 5 0 5">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <Label Content="Concrete"/>
+                                    <TextBox Text="C30" Width="100" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
+                                </StackPanel>
+                            </Grid>
+                            <Grid Grid.Row="1" Margin="0 0 0 5">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <Label Content="Steel"/>
+                                    <TextBox Text="S460" Width="100" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
+                                </StackPanel>
+                            </Grid>
+                            <Grid Grid.Row="2" Margin="0 0 0 5">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <Label Content="Rebar Dia."/>
+                                    <TextBox Text="12" Width="100" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
+                                </StackPanel>
+                            </Grid>
+                            
+                        </Grid>
+                        <Grid Grid.Row="1">
+                            
+                        </Grid>
+                    </Grid>
                 </GroupBox>
 
             </Grid>
