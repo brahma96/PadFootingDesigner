@@ -178,6 +178,7 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
                             <Grid Grid.Row="0" Margin="0 5 0 5">
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
@@ -187,8 +188,14 @@
                             </Grid>
                             <Grid Grid.Row="1" Margin="0 0 0 5">
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                                    <Label Content="Rebar"/>
+                                    <Label Content="Steel"/>
                                     <TextBox Text="S460" Width="100" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
+                                </StackPanel>
+                            </Grid>
+                            <Grid Grid.Row="2" Margin="0 0 0 5">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <Label Content="Rebar Dia."/>
+                                    <TextBox Text="12" Width="100" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
                                 </StackPanel>
                             </Grid>
                             
