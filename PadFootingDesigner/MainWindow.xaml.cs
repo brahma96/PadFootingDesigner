@@ -27,7 +27,18 @@ namespace PadFootingDesigner
 
             Console.WriteLine("MenuListView.SelectedItem");
             Console.WriteLine(MenuListView.SelectedItem);
+
+            this.DataContext = this;
+
+            SampleButton = new RelayCommand(sampleCommand);
         
+        }
+
+        public ICommand SampleButton { get; }
+
+        public void sampleCommand(object obj)
+        {
+            MessageBox.Show("igbundbiwin");
         }
 
     }

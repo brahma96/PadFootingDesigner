@@ -45,6 +45,15 @@
         </DataTemplate>-->
         <!--<local:ProjectTemplateSelector x:Key="MyTemplateSelector"/>-->
         <local:SelectedItemToTemplateVisibilityConverter x:Key="selectedItemToTemplateVisibilityConverter"/>
+        <!--<DataTemplate x:Key="helooUserControl" DataType="{x:Type local:UserControl1ViewModel}">
+            <local:UserControl1 DataContext="{Binding }"/>
+        </DataTemplate>
+        <DataTemplate x:Key="helooUserControl2" DataType="{x:Type local:UserControl1}">
+            <local:UserControl1 DataContext="{Binding }"/>
+        </DataTemplate>-->
+
+        <local:UserControl1 x:Key="userControlView"/>
+        <local:UserControl1ViewModel x:Key="userControlViewModel"/>
 
     </Window.Resources>
 
@@ -195,7 +204,8 @@
                             <Grid Grid.Row="2" Margin="0 0 0 5">
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                     <Label Content="Rebar Dia."/>
-                                    <TextBox Text="12" Width="100" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
+                                    <TextBox Text="12" Width="100" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" IsEnabled="{Binding ElementName=checkbox01, Path=IsChecked}"/>
+                                    <CheckBox x:Name="checkbox01" IsChecked="True"/>
                                 </StackPanel>
                             </Grid>
                             
@@ -209,21 +219,26 @@
             </Grid>
             <Grid Grid.Row="1">
                 <GroupBox Header="Design" Margin="5">
-                    
+                    <Button Content="samplebutton" Height="57" Margin="42,0,37,0" Command="{Binding SampleButton}"/>
                 </GroupBox>
             </Grid>
         </Grid>
         <Grid Grid.Column="2">
-            <GroupBox Header="Detailing" Margin="5">
-                <!--<ContentControl Content="??" ContentTemplateSelector="{DynamicResource MyTemplateSelector}" Visibility="Visible">-->
-                <ContentControl ContentTemplate="{DynamicResource helooUserControl}" Visibility="Visible">
-                    <ContentControl.Resources>
-                        <DataTemplate x:Key="helooUserControl" DataType="{x:Type local:UserControl1ViewModel}">
-                            <local:UserControl1 DataContext="{Binding}"/>
-                        </DataTemplate>
-                    </ContentControl.Resources>
-                </ContentControl>
-            </GroupBox>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <GroupBox Header="Detailing" Margin="5">
+                    <!--<ContentControl Content="??" ContentTemplateSelector="{DynamicResource MyTemplateSelector}" Visibility="Visible">-->
+                    <ContentControl Content="{StaticResource userControlView}"  Visibility="Visible">
+                        <ContentControl.DataContext>
+                            <Binding Source="{StaticResource userControlViewModel}"/>
+                        </ContentControl.DataContext>
+                    </ContentControl>
+                </GroupBox>
+
+            </Grid>
         </Grid>
     </Grid>
 </Window>

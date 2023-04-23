@@ -24,6 +24,17 @@ namespace PadFootingDesigner
         {
             InitializeComponent();
             //DataContext = new UserControl1ViewModel();
+
+            //this.DataContext = this;
+
+            //PressMeCommand = new RelayCommand((parameter) => MessageBox.Show("Hello from relaycommand!"));
         }
+
+        //public ICommand PressMeCommand { get; }
+
+        //private void Button_Click(object sender, RoutedEventArgs e)
+        //{
+        //    MessageBox.Show("Hello!");
+        //}
     }
 }
