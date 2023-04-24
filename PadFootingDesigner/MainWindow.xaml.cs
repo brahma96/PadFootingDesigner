@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PadFootingDesigner.Commands;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -24,9 +25,6 @@ namespace PadFootingDesigner
         public MainWindow()
         {
             InitializeComponent();
-
-            Console.WriteLine("MenuListView.SelectedItem");
-            Console.WriteLine(MenuListView.SelectedItem);
 
             this.DataContext = this;
 

@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace PadFootingDesigner
+namespace PadFootingDesigner.Controls
 {
     /// <summary>
     /// Interaction logic for UserControl1.xaml
@@ -23,18 +23,8 @@ namespace PadFootingDesigner
         public UserControl1()
         {
             InitializeComponent();
-            //DataContext = new UserControl1ViewModel();
 
-            //this.DataContext = this;
-
-            //PressMeCommand = new RelayCommand((parameter) => MessageBox.Show("Hello from relaycommand!"));
         }
 
-        //public ICommand PressMeCommand { get; }
-
-        //private void Button_Click(object sender, RoutedEventArgs e)
-        //{
-        //    MessageBox.Show("Hello!");
-        //}
     }
 }

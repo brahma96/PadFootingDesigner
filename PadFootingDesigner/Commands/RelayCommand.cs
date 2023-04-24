@@ -2,7 +2,7 @@
 using System;
 using System.Windows.Input;
 
-namespace PadFootingDesigner
+namespace PadFootingDesigner.Commands
 {
     public class RelayCommand : ICommand
     {
