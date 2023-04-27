@@ -1,0 +1,267 @@
+﻿<UserControl x:Class="PadFootingDesigner.Controls.PadDesignerView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PadFootingDesigner.Controls"
+             xmlns:conv="clr-namespace:PadFootingDesigner.Converters"
+             mc:Ignorable="d" 
+             Background="White"
+             d:DesignHeight="506" d:DesignWidth="900">
+
+    <UserControl.Resources>
+        <conv:SelectedItemToTemplateVisibilityConverter x:Key="selectedItemToTemplateVisibilityConverter"/>
+
+        <Style x:Key="RadioButtonStyle" TargetType="{x:Type RadioButton}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type RadioButton}">
+                        <Border Margin="20 0 0 0">
+                            <ContentPresenter Content="{TemplateBinding Content}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter Property="FontWeight" Value="Bold"/>
+                                <Setter Property="Foreground" Value="Blue"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="FontWeight" Value="DemiBold"/>
+                                <Setter Property="Foreground" Value="Blue"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+
+
+        <DataTemplate x:Key="helooUserControl2" DataType="{x:Type local:UserControl1ViewModel}">
+            <local:UserControl1 DataContext="{Binding }"/>
+        </DataTemplate>
+
+        <local:UserControl1 x:Key="userControlView"/>
+        <local:UserControl1ViewModel x:Key="userControlViewModel"/>
+
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="472.79"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+
+        <Grid Grid.Column="0" Margin="15 0 0 0">
+            <StackPanel>
+
+                <Label Content="Geometry" FontSize="18" Margin="0 5 0 0"/>
+                <RadioButton Content="Geometry" x:Name="selectionGeometry" GroupName="Sidebar" Style="{StaticResource RadioButtonStyle}" IsChecked="True"/>
+
+                <Label Content="Analysis" FontSize="18" Margin="0 5 0 0"/>
+                <RadioButton Content="Materials" x:Name="selectionMaterials" GroupName="Sidebar" Style="{StaticResource RadioButtonStyle}"/>
+                <RadioButton Content="Options" x:Name="selectionOptions" GroupName="Sidebar" Style="{StaticResource RadioButtonStyle}"/>
+
+                <Label Content="Loads" FontSize="18" Margin="0 5 0 0"/>
+                <RadioButton Content="Column Loads" x:Name="selectionColumnLoads" GroupName="Sidebar" Style="{StaticResource RadioButtonStyle}"/>
+
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="339"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Height="Auto">
+                <GroupBox x:Name="geometryGroupBox" Header="Geometry" Margin="5" Visibility="{Binding ElementName=selectionGeometry, Path=IsChecked, Converter={StaticResource selectedItemToTemplateVisibilityConverter} }" >
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid Grid.Column="0">
+                            <StackPanel>
+                                <GroupBox Header="Pad Footing Geometry" Margin="5" >
+                                    <Grid>
+                                        <StackPanel>
+                                            <StackPanel Orientation="Horizontal" Margin="0 2" HorizontalAlignment="Right">
+                                                <Label Content="Footing Label: " HorizontalAlignment="Right"/>
+                                                <TextBox Width="100" Height="20" Margin="0 0 30 0"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" Margin="0 2" HorizontalAlignment="Right">
+                                                <Label Content="Depth: " HorizontalAlignment="Right"/>
+                                                <TextBox Width="100" Height="20" Margin="0 0 30 0"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" Margin="0 2" HorizontalAlignment="Right">
+                                                <Label Content="Footing Taper Height: " HorizontalAlignment="Right"/>
+                                                <TextBox Width="100" Height="20" Margin="0 0 30 0"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" Margin="0 2" HorizontalAlignment="Right">
+                                                <Label Content="Concrete Cover: " HorizontalAlignment="Right"/>
+                                                <TextBox Width="100" Height="20" Margin="0 0 30 0"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" Margin="0 2" HorizontalAlignment="Right">
+                                                <Label Content="Lx: " HorizontalAlignment="Right"/>
+                                                <TextBox Width="100" Height="20" Margin="0 0 30 0"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" Margin="0 2" HorizontalAlignment="Right">
+                                                <Label Content="Ly: " HorizontalAlignment="Right"/>
+                                                <TextBox Width="100" Height="20" Margin="0 0 30 0"/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </Grid>
+                                </GroupBox>
+                                <GroupBox x:Name="padEccentricity" Header="Pad Footing Eccentricity" Margin="5" Visibility="Visible">
+                                    <Grid>
+                                        <StackPanel>
+                                            <StackPanel Orientation="Horizontal" Margin="0 2" HorizontalAlignment="Right">
+                                                <Label Content="Eccentricity X: " HorizontalAlignment="Right"/>
+                                                <TextBox Width="80" Height="20" Margin="0 0 30 0"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" Margin="0 2" HorizontalAlignment="Right">
+                                                <Label Content="Eccentricity y: " HorizontalAlignment="Right"/>
+                                                <TextBox Width="80" Height="20" Margin="0 0 30 0"/>
+                                            </StackPanel>
+
+                                        </StackPanel>
+                                    </Grid>
+
+                                </GroupBox>
+                            </StackPanel>
+                        </Grid>
+                        <Grid Grid.Column="1">
+                            <StackPanel>
+                                <GroupBox Header="Column Dimensions" Margin="5">
+                                    <Grid>
+                                        <StackPanel>
+                                            <StackPanel Orientation="Horizontal" Margin="0 2" HorizontalAlignment="Right">
+                                                <Label Content="b1: " HorizontalAlignment="Right"/>
+                                                <TextBox Width="80" Height="20" Margin="0 0 30 0"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" Margin="0 2" HorizontalAlignment="Right">
+                                                <Label Content="b2: " HorizontalAlignment="Right"/>
+                                                <TextBox Width="80" Height="20" Margin="0 0 30 0"/>
+                                            </StackPanel>
+
+                                        </StackPanel>
+                                    </Grid>
+                                </GroupBox>
+                            </StackPanel>
+                        </Grid>
+
+                    </Grid>
+                </GroupBox>
+                <GroupBox x:Name="materialGroupBox" Header="Materials" Margin="5" Visibility="{Binding ElementName=selectionMaterials, Path=IsChecked, Converter={StaticResource selectedItemToTemplateVisibilityConverter} }" >
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+
+                        <Grid Grid.Row="0" Margin="5">
+                            <GroupBox Header="Concrete/Rebar Properties" Padding="0 10 0 0">
+                                <StackPanel>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                        <Label Content="Concrete: " Width="100"/>
+                                        <TextBox Text="C30" Width="100" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                        <Label Content="Steel: " Width="100"/>
+                                        <TextBox Text="S460" Width="100" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                        <Label Content="Rebar Dia: " Width="100"/>
+                                        <TextBox Text="12" Width="100" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
+                                        <!--<TextBox Text="12" Width="100" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" IsEnabled="{Binding ElementName=checkbox01, Path=IsChecked}"/>-->
+                                        <!--<CheckBox x:Name="checkbox01" IsChecked="True"/>-->
+                                    </StackPanel>
+                                </StackPanel>
+
+
+                            </GroupBox>
+
+                            <!--<GroupBox Header="Concrete/Rebar Properties">
+                                <StackPanel>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid Grid.Column="0" ShowGridLines="True">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                            </Grid.RowDefinitions>
+                                            <Grid Grid.Row="0" HorizontalAlignment="Right">
+                                                <Label Content="Concrete: "/>
+                                            </Grid>
+                                            <Grid Grid.Row="1" HorizontalAlignment="Right">
+                                                <Label Content="Steel: "/>
+                                            </Grid>
+                                            <Grid Grid.Row="2" HorizontalAlignment="Right">
+                                                <Label Content="Rebar: "/>
+                                            </Grid>
+                                        </Grid>
+                                        <Grid Grid.Column="1" ShowGridLines="True">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                            </Grid.RowDefinitions>
+                                            <Grid Grid.Row="0" HorizontalAlignment="Stretch">
+                                                <TextBox/>
+                                            </Grid>
+                                            <Grid Grid.Row="1" HorizontalAlignment="Stretch">
+                                                <TextBox/>
+                                            </Grid>
+                                            <Grid Grid.Row="2" HorizontalAlignment="Stretch">
+                                                <TextBox/>
+                                            </Grid>
+                                        </Grid>
+                                    </Grid>
+                                </StackPanel>
+                            </GroupBox>-->
+                        </Grid>
+                        <Grid Grid.Row="1" Margin="5">
+                            <GroupBox Header="Soil Properties"/>
+                        </Grid>
+                    </Grid>
+                </GroupBox>
+                <GroupBox x:Name="optionsGroupBox" Header="Options" Margin="5" Visibility="{Binding ElementName=selectionOptions, Path=IsChecked, Converter={StaticResource selectedItemToTemplateVisibilityConverter} }">
+                    
+                </GroupBox>
+
+            </Grid>
+            <Grid Grid.Row="1">
+                <GroupBox Header="Design" Margin="5">
+                    <Button Content="samplebutton" Height="57" Margin="42,0,37,0" Command="{Binding SampleButton}"/>
+                </GroupBox>
+            </Grid>
+        </Grid>
+        <Grid Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <GroupBox Header="Detailing" Margin="5">
+                    <ContentControl Content="{StaticResource userControlView}"  Visibility="Visible" DataContext="{StaticResource userControlViewModel}">
+                    </ContentControl>
+                </GroupBox>
+
+            </Grid>
+            <Grid Grid.Row="1">
+                <ContentControl Content="{StaticResource userControlViewModel}" ContentTemplate="{StaticResource helooUserControl2}">
+
+                </ContentControl>
+            </Grid>
+        </Grid>
+
+    </Grid>
+
+
+</UserControl>

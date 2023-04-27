@@ -4,226 +4,23 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PadFootingDesigner"
+        xmlns:conv="clr-namespace:PadFootingDesigner.Converters"
+        xmlns:ctrl="clr-namespace:PadFootingDesigner.Controls"
+        xmlns:win="clr-namespace:PadFootingDesigner.Windows"
         mc:Ignorable="d"
-        Title="Pad Footing Designer" Height="450" Width="800">
-    <Window.Resources>
-        <Style x:Key="LinkTypeButton" TargetType="Button">
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="FontWeight" Value="Bold"/>
-                    <Setter Property="Background" Value="White"/>
-                    <Setter Property="BorderBrush" Value="White"/>
-                </Trigger>
-                <!--<Trigger Property="ClickMode" Value="Release">
-                    <Setter Property="FontWeight" Value="Bold"/>
-                </Trigger>-->
-            </Style.Triggers>
-            <Style.Setters>
-                <Setter Property="Background" Value="White"/>
-                <Setter Property="BorderBrush" Value="White"/>
-            </Style.Setters>
-        </Style>
-        <Style x:Key="ListBoxItemStyle" TargetType="ListBoxItem">
-            <Style.Setters>
-                <Setter Property="IsSelected" Value="True"/>
-            </Style.Setters>
-        </Style>
-        <Style x:Key="LinkStyleForTextBlock" TargetType="TextBlock">
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="TextDecorations" Value="Underline"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-        <Style x:Key="ButtonStyleInList" TargetType="Button">
-            <Setter Property="Background" Value="White"/>
-            <Setter Property="BorderBrush" Value="White"/>
-            <Setter Property="HorizontalContentAlignment" Value="Left"/>
-        </Style>
-        <!--<DataTemplate x:Key="helooUserControl" DataType="{x:Type local:UserControl1ViewModel}">
-            <local:UserControl1 DataContext="{Binding}"/>
-        </DataTemplate>-->
-        <!--<local:ProjectTemplateSelector x:Key="MyTemplateSelector"/>-->
-        <local:SelectedItemToTemplateVisibilityConverter x:Key="selectedItemToTemplateVisibilityConverter"/>
+        Title="Pad Footing Designer" 
+        Height="506" Width="900" MinHeight="506" MinWidth="900" 
+        ResizeMode="CanResizeWithGrip">
 
+    <Window.Resources>
+        <ctrl:PadDesignerView x:Key="padDesignerView"/>
+        <ctrl:OldPadDesigner x:Key="oldpadDesignerView"/>
+        <win:DataGridSample x:Key="dataGridSample"/>
+        <ctrl:UserControl1ViewModel x:Key="abcd"/>
     </Window.Resources>
 
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="150"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        
-
-        <Grid Grid.Column="0">
-            <StackPanel Margin="10" Visibility="Collapsed">
-                <Label Content="Geometry" FontSize="14" FontWeight="DemiBold"/>
-                <!--<TextBlock Text="Geometry" Margin="20 0 0 0" Style="{StaticResource LinkStyleForTextBlock}"/>-->
-                <Button Content="Geometry" Margin="20 0 0 0" Style="{StaticResource ButtonStyleInList}"/>
-
-
-                <Label Content="Analysis" Margin="0 10 0 0" FontSize="14" FontWeight="DemiBold"/>
-                <Button Content="Materials" Margin="20 0 0 0" Style="{StaticResource ButtonStyleInList}"/>
-                <Button Content="Options" Margin="20 0 0 0" Style="{StaticResource ButtonStyleInList}"/>
-                <Button Content="Column Load" Margin="20 0 0 0" Style="{StaticResource ButtonStyleInList}"/>
-
-                <Label Content="Rebars" Margin="0 10 0 0" FontSize="14" FontWeight="DemiBold"/>
-                <Button Content="Rebars" Margin="20 0 0 0" Style="{StaticResource ButtonStyleInList}"/>
-
-            </StackPanel>
-            <StackPanel>
-                <ListView x:Name="MenuListView">
-                    <ListViewItem Content="Geometry" x:Name="geometry"/>
-                    <ListViewItem Content="Materials" x:Name="materials" IsSelected="True"/>
-                    <ListViewItem Content="Options" x:Name="options"/>
-                </ListView>
-            </StackPanel>
-        </Grid>
-        
-        <Grid Grid.Column="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-
-            <Grid Grid.Row="0">
-                <GroupBox x:Name="geometryGroupBox" Header="Geometry" Margin="5" Visibility="{Binding ElementName=geometry, Path=IsSelected, Converter={StaticResource selectedItemToTemplateVisibilityConverter} }">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
-
-                        <Grid Grid.Column="0">
-                            <StackPanel>
-                                <GroupBox Header="Pad Footing Geometry" Margin="5" >
-                                    <Grid>
-                                        <StackPanel>
-                                            <StackPanel Orientation="Horizontal" Margin="0 2" HorizontalAlignment="Right">
-                                                <Label Content="Footing Label: " HorizontalAlignment="Right"/>
-                                                <TextBox Width="100" Height="20" Margin="0 0 30 0"/>
-                                            </StackPanel>
-                                            <StackPanel Orientation="Horizontal" Margin="0 2" HorizontalAlignment="Right">
-                                                <Label Content="Depth: " HorizontalAlignment="Right"/>
-                                                <TextBox Width="100" Height="20" Margin="0 0 30 0"/>
-                                            </StackPanel>
-                                            <StackPanel Orientation="Horizontal" Margin="0 2" HorizontalAlignment="Right">
-                                                <Label Content="Footing Taper Height: " HorizontalAlignment="Right"/>
-                                                <TextBox Width="100" Height="20" Margin="0 0 30 0"/>
-                                            </StackPanel>
-                                            <StackPanel Orientation="Horizontal" Margin="0 2" HorizontalAlignment="Right">
-                                                <Label Content="Concrete Cover: " HorizontalAlignment="Right"/>
-                                                <TextBox Width="100" Height="20" Margin="0 0 30 0"/>
-                                            </StackPanel>
-                                            <StackPanel Orientation="Horizontal" Margin="0 2" HorizontalAlignment="Right">
-                                                <Label Content="Lx: " HorizontalAlignment="Right"/>
-                                                <TextBox Width="100" Height="20" Margin="0 0 30 0"/>
-                                            </StackPanel>
-                                            <StackPanel Orientation="Horizontal" Margin="0 2" HorizontalAlignment="Right">
-                                                <Label Content="Ly: " HorizontalAlignment="Right"/>
-                                                <TextBox Width="100" Height="20" Margin="0 0 30 0"/>
-                                            </StackPanel>
-                                        </StackPanel>    
-                                    </Grid>
-                                </GroupBox>
-                                <GroupBox x:Name="padEccentricity" Header="Pad Footing Eccentricity" Margin="5" Visibility="Visible">
-                                    <Grid>
-                                        <StackPanel>
-                                            <StackPanel Orientation="Horizontal" Margin="0 2" HorizontalAlignment="Right">
-                                                <Label Content="Eccentricity X: " HorizontalAlignment="Right"/>
-                                                <TextBox Width="80" Height="20" Margin="0 0 30 0"/>
-                                            </StackPanel>
-                                            <StackPanel Orientation="Horizontal" Margin="0 2" HorizontalAlignment="Right">
-                                                <Label Content="Eccentricity y: " HorizontalAlignment="Right"/>
-                                                <TextBox Width="80" Height="20" Margin="0 0 30 0"/>
-                                            </StackPanel>
-
-                                        </StackPanel>
-                                    </Grid>
-
-                                </GroupBox>
-                            </StackPanel>
-                        </Grid>
-                        <Grid Grid.Column="1">
-                            <StackPanel>
-                                <GroupBox Header="Column Dimensions" Margin="5">
-                                    <Grid>
-                                        <StackPanel>
-                                            <StackPanel Orientation="Horizontal" Margin="0 2" HorizontalAlignment="Right">
-                                                <Label Content="b1: " HorizontalAlignment="Right"/>
-                                                <TextBox Width="80" Height="20" Margin="0 0 30 0"/>
-                                            </StackPanel>
-                                            <StackPanel Orientation="Horizontal" Margin="0 2" HorizontalAlignment="Right">
-                                                <Label Content="b2: " HorizontalAlignment="Right"/>
-                                                <TextBox Width="80" Height="20" Margin="0 0 30 0"/>
-                                            </StackPanel>
-
-                                        </StackPanel>
-                                    </Grid>
-                                </GroupBox>
-                            </StackPanel>
-                        </Grid>
-
-                    </Grid>
-                </GroupBox>
-                <GroupBox x:Name="materialGroupBox" Header="Materials" Margin="5" Visibility="{Binding ElementName=materials, Path=IsSelected, Converter={StaticResource selectedItemToTemplateVisibilityConverter} }">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                        </Grid.RowDefinitions>
-
-                        <Grid Grid.Row="0" Margin="5">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
-                            <Grid Grid.Row="0" Margin="0 5 0 5">
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                                    <Label Content="Concrete"/>
-                                    <TextBox Text="C30" Width="100" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
-                                </StackPanel>
-                            </Grid>
-                            <Grid Grid.Row="1" Margin="0 0 0 5">
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                                    <Label Content="Steel"/>
-                                    <TextBox Text="S460" Width="100" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
-                                </StackPanel>
-                            </Grid>
-                            <Grid Grid.Row="2" Margin="0 0 0 5">
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                                    <Label Content="Rebar Dia."/>
-                                    <TextBox Text="12" Width="100" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
-                                </StackPanel>
-                            </Grid>
-                            
-                        </Grid>
-                        <Grid Grid.Row="1">
-                            
-                        </Grid>
-                    </Grid>
-                </GroupBox>
-
-            </Grid>
-            <Grid Grid.Row="1">
-                <GroupBox Header="Design" Margin="5">
-                    
-                </GroupBox>
-            </Grid>
-        </Grid>
-        <Grid Grid.Column="2">
-            <GroupBox Header="Detailing" Margin="5">
-                <!--<ContentControl Content="??" ContentTemplateSelector="{DynamicResource MyTemplateSelector}" Visibility="Visible">-->
-                <ContentControl ContentTemplate="{DynamicResource helooUserControl}" Visibility="Visible">
-                    <ContentControl.Resources>
-                        <DataTemplate x:Key="helooUserControl" DataType="{x:Type local:UserControl1ViewModel}">
-                            <local:UserControl1 DataContext="{Binding}"/>
-                        </DataTemplate>
-                    </ContentControl.Resources>
-                </ContentControl>
-            </GroupBox>
-        </Grid>
+        <ContentControl Content="{StaticResource padDesignerView}"/>
     </Grid>
+
 </Window>
