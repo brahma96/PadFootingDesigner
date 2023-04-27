@@ -2,17 +2,20 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:PadFootingDesigner.Controls" xmlns:conv="clr-namespace:PadFootingDesigner.Converters"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:local="clr-namespace:PadFootingDesigner.Controls" 
+             xmlns:conv="clr-namespace:PadFootingDesigner.Converters"
+             xmlns:win="clr-namespace:PadFootingDesigner.Windows"
              mc:Ignorable="d" 
              Background="White"
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
-        <Style x:Key="ButtonStyleInList" TargetType="Button">
+        <!--<Style x:Key="ButtonStyleInList" TargetType="Button">
             <Setter Property="Background" Value="White"/>
             <Setter Property="BorderBrush" Value="White"/>
             <Setter Property="HorizontalContentAlignment" Value="Left"/>
-        </Style>
+        </Style>-->
         <!--<local:ProjectTemplateSelector x:Key="MyTemplateSelector"/>-->
         <conv:SelectedItemToTemplateVisibilityConverter x:Key="selectedItemToTemplateVisibilityConverter"/>
 
@@ -22,49 +25,70 @@
 
         <local:UserControl1 x:Key="userControlView"/>
         <local:UserControl1ViewModel x:Key="userControlViewModel"/>
+        <win:DataGridSample x:Key="dataGridSample"/>
+
+        <Style x:Key="RadioButtonToToggleButton" TargetType="{x:Type RadioButton}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type RadioButton}">
+                        <Border BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    Background="{TemplateBinding Background}"
+                    Padding="{TemplateBinding Padding}"
+                    SnapsToDevicePixels="True">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                  Margin="{TemplateBinding Padding}"
+                                  VerticalAlignment="Center"
+                                  RecognizesAccessKey="True"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="False">
+                                <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}"/>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.ActiveBorderBrushKey}}"/>
+                                <Setter Property="FontWeight" Value="Bold"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlDarkBrushKey}}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+
 
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="472.79"/>
             <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
 
-        <Grid Grid.Column="0">
-            <StackPanel Margin="10" Visibility="Collapsed">
-                <Label Content="Geometry" FontSize="14" FontWeight="DemiBold"/>
-                <!--<TextBlock Text="Geometry" Margin="20 0 0 0" Style="{StaticResource LinkStyleForTextBlock}"/>-->
-                <Button Content="Geometry" Margin="20 0 0 0" Style="{StaticResource ButtonStyleInList}"/>
-
-
-                <Label Content="Analysis" Margin="0 10 0 0" FontSize="14" FontWeight="DemiBold"/>
-                <Button Content="Materials" Margin="20 0 0 0" Style="{StaticResource ButtonStyleInList}"/>
-                <Button Content="Options" Margin="20 0 0 0" Style="{StaticResource ButtonStyleInList}"/>
-                <Button Content="Column Load" Margin="20 0 0 0" Style="{StaticResource ButtonStyleInList}"/>
-
-                <Label Content="Rebars" Margin="0 10 0 0" FontSize="14" FontWeight="DemiBold"/>
-                <Button Content="Rebars" Margin="20 0 0 0" Style="{StaticResource ButtonStyleInList}"/>
-
-            </StackPanel>
+        <Grid Grid.Column="0" Margin="15 0 0 0">
             <StackPanel>
                 <ListView x:Name="MenuListView">
-                    <ListViewItem Content="Geometry" x:Name="geometry" IsSelected="True"/>
-                    <ListViewItem Content="Materials" x:Name="materials"/>
-                    <ListViewItem Content="Options" x:Name="options"/>
+                    <ListViewItem Content="Geometry (Old)" x:Name="geometry"/>
+                    <ListViewItem Content="Materials (Old)" x:Name="materials"/>
+                    <ListViewItem Content="Options (Old)" x:Name="options" IsSelected="True"/>
                 </ListView>
+
+
             </StackPanel>
         </Grid>
 
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="339"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
-            <Grid Grid.Row="0">
-                <GroupBox x:Name="geometryGroupBox" Header="Geometry" Margin="5" Visibility="{Binding ElementName=geometry, Path=IsSelected, Converter={StaticResource selectedItemToTemplateVisibilityConverter} }" FontSize="10">
+            <Grid Grid.Row="0" Height="Auto">
+                <GroupBox x:Name="geometryGroupBox" Header="Geometry" Margin="5" Visibility="{Binding ElementName=geometry, Path=IsSelected, Converter={StaticResource selectedItemToTemplateVisibilityConverter} }" >
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
@@ -143,7 +167,7 @@
 
                     </Grid>
                 </GroupBox>
-                <GroupBox x:Name="materialGroupBox" Header="Materials" Margin="5" Visibility="{Binding ElementName=materials, Path=IsSelected, Converter={StaticResource selectedItemToTemplateVisibilityConverter} }" FontSize="10">
+                <GroupBox x:Name="materialGroupBox" Header="Materials" Margin="5" Visibility="{Binding ElementName=materials, Path=IsSelected, Converter={StaticResource selectedItemToTemplateVisibilityConverter} }" >
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition/>
@@ -159,7 +183,13 @@
                             <Grid Grid.Row="0" Margin="0 5 0 5">
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                     <Label Content="Concrete"/>
-                                    <TextBox Text="C30" Width="100" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
+                                    <!--<TextBox Text="C30" Width="100" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>-->
+                                    <ComboBox>
+                                        <ComboBoxItem Content="Please select.." IsSelected="True" Foreground="Gray"/>
+                                        <ComboBoxItem Content="option A"/>
+                                        <ComboBoxItem Content="option B"/>
+                                        <ComboBoxItem Content="option C"/>
+                                    </ComboBox>
                                 </StackPanel>
                             </Grid>
                             <Grid Grid.Row="1" Margin="0 0 0 5">
@@ -183,10 +213,25 @@
                     </Grid>
                 </GroupBox>
 
+                <GroupBox x:Name="optionsGroupBox" Header="Options" Margin="5" Visibility="{Binding ElementName=options, Path=IsSelected, Converter={StaticResource selectedItemToTemplateVisibilityConverter} }">
+                    <Grid>
+                        <ContentControl Content="{StaticResource dataGridSample}">
+
+                        </ContentControl>
+                    </Grid>
+                </GroupBox>
+
             </Grid>
             <Grid Grid.Row="1">
                 <GroupBox Header="Design" Margin="5">
-                    <Button Content="samplebutton" Height="57" Margin="42,0,37,0" Command="{Binding SampleButton}"/>
+                    <StackPanel Orientation="Horizontal">
+                        <Button Content="samplebutton" Height="20" Width="100" Margin="20 0" Command="{Binding SampleButton}" Background="#FFDDDDDD"/>
+                        <RadioButton Content="A" GroupName="abc" Style="{StaticResource RadioButtonToToggleButton}" Height="30" Width="30"/>
+                        <RadioButton Content="B" GroupName="abc" Style="{StaticResource RadioButtonToToggleButton}" Height="30" Width="30" IsChecked="True"/>
+                        <RadioButton Content="C" GroupName="abc" Style="{StaticResource RadioButtonToToggleButton}" Height="30" Width="30"/>
+                        <RadioButton Content="D" GroupName="abc" Style="{StaticResource RadioButtonToToggleButton}" Height="30" Width="30"/>
+                        <xctk:IntegerUpDown Value="42" Minimum="0" Maximum="100" Increment="1" Height="30" Width="100" Margin="30 0"/>
+                    </StackPanel>
                 </GroupBox>
             </Grid>
         </Grid>

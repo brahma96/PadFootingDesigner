@@ -25,18 +25,7 @@ namespace PadFootingDesigner
         public MainWindow()
         {
             InitializeComponent();
-
-            this.DataContext = this;
-
-            SampleButton = new RelayCommand(sampleCommand);
         
-        }
-
-        public ICommand SampleButton { get; }
-
-        public void sampleCommand(object obj)
-        {
-            MessageBox.Show("igbundbiwin");
         }
 
     }

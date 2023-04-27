@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PadFootingDesigner.Commands;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,17 @@ namespace PadFootingDesigner.Controls
         public OldPadDesigner()
         {
             InitializeComponent();
+
+            //this.DataContext = this;
+
+            //SelectShape = new RelayCommand(ExecuteCommandShape);
         }
+
+        //public ICommand SelectShape { get; set; }
+
+        //public void ExecuteCommandShape(object obj)
+        //{
+        //    MessageBox.Show("Shapes!");
+        //}
     }
 }

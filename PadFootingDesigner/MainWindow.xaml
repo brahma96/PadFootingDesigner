@@ -6,15 +6,21 @@
         xmlns:local="clr-namespace:PadFootingDesigner"
         xmlns:conv="clr-namespace:PadFootingDesigner.Converters"
         xmlns:ctrl="clr-namespace:PadFootingDesigner.Controls"
+        xmlns:win="clr-namespace:PadFootingDesigner.Windows"
         mc:Ignorable="d"
-        Title="Pad Footing Designer" Height="450" Width="800">
+        Title="Pad Footing Designer" 
+        Height="506" Width="900" MinHeight="506" MinWidth="900" 
+        ResizeMode="CanResizeWithGrip">
 
     <Window.Resources>
-        <ctrl:OldPadDesigner x:Key="oldPadDesigner"/>
+        <ctrl:PadDesignerView x:Key="padDesignerView"/>
+        <ctrl:OldPadDesigner x:Key="oldpadDesignerView"/>
+        <win:DataGridSample x:Key="dataGridSample"/>
+        <ctrl:UserControl1ViewModel x:Key="abcd"/>
     </Window.Resources>
 
     <Grid>
-        <ContentControl Content="{StaticResource oldPadDesigner}"/>
+        <ContentControl Content="{StaticResource oldpadDesignerView}" DataContext="{StaticResource abcd}"/>
     </Grid>
 
 </Window>
