@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              xmlns:local="clr-namespace:PadFootingDesigner.Controls"
              xmlns:conv="clr-namespace:PadFootingDesigner.Converters"
              mc:Ignorable="d" 
@@ -16,13 +17,14 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type RadioButton}">
-                        <Border Margin="20 0 0 0">
+                        <Border Margin="20 0 0 0" Background="{TemplateBinding Background}">
                             <ContentPresenter Content="{TemplateBinding Content}"/>
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsChecked" Value="True">
                                 <Setter Property="FontWeight" Value="Bold"/>
                                 <Setter Property="Foreground" Value="Blue"/>
+                                <Setter Property="Background" Value="LightBlue"/>
                             </Trigger>
                             <Trigger Property="IsMouseOver" Value="True">
                                 <Setter Property="FontWeight" Value="DemiBold"/>
@@ -35,6 +37,40 @@
             <Setter Property="FontSize" Value="14"/>
         </Style>
 
+        <Style x:Key="RadioButtonToToggleButton" TargetType="{x:Type RadioButton}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type RadioButton}">
+                        <Border BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    Background="{TemplateBinding Background}"
+                    Padding="{TemplateBinding Padding}"
+                    SnapsToDevicePixels="True">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                  Margin="{TemplateBinding Padding}"
+                                  VerticalAlignment="Center"
+                                  RecognizesAccessKey="True"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="False">
+                                <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}"/>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.ActiveBorderBrushKey}}"/>
+                                <Setter Property="FontWeight" Value="Bold"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlDarkBrushKey}}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="TextBox">
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
 
         <DataTemplate x:Key="helooUserControl2" DataType="{x:Type local:UserControl1ViewModel}">
             <local:UserControl1 DataContext="{Binding }"/>
@@ -44,6 +80,7 @@
         <local:UserControl1ViewModel x:Key="userControlViewModel"/>
 
     </UserControl.Resources>
+    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="150"/>
@@ -55,14 +92,14 @@
         <Grid Grid.Column="0" Margin="15 0 0 0">
             <StackPanel>
 
-                <Label Content="Geometry" FontSize="18" Margin="0 5 0 0"/>
-                <RadioButton Content="Geometry" x:Name="selectionGeometry" GroupName="Sidebar" Style="{StaticResource RadioButtonStyle}" IsChecked="True"/>
+                <Label Content="Geometry" FontSize="18" Margin="0 10 0 0"/>
+                <RadioButton Content="Geometry" x:Name="selectionGeometry" GroupName="Sidebar" Style="{StaticResource RadioButtonStyle}"/>
 
-                <Label Content="Analysis" FontSize="18" Margin="0 5 0 0"/>
+                <Label Content="Analysis" FontSize="18" Margin="0 10 0 0"/>
                 <RadioButton Content="Materials" x:Name="selectionMaterials" GroupName="Sidebar" Style="{StaticResource RadioButtonStyle}"/>
-                <RadioButton Content="Options" x:Name="selectionOptions" GroupName="Sidebar" Style="{StaticResource RadioButtonStyle}"/>
+                <RadioButton Content="Options" x:Name="selectionOptions" GroupName="Sidebar" Style="{StaticResource RadioButtonStyle}" IsChecked="True"/>
 
-                <Label Content="Loads" FontSize="18" Margin="0 5 0 0"/>
+                <Label Content="Loads" FontSize="18" Margin="0 10 0 0"/>
                 <RadioButton Content="Column Loads" x:Name="selectionColumnLoads" GroupName="Sidebar" Style="{StaticResource RadioButtonStyle}"/>
 
             </StackPanel>
@@ -70,7 +107,7 @@
 
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="339"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
@@ -116,17 +153,42 @@
                                 </GroupBox>
                                 <GroupBox x:Name="padEccentricity" Header="Pad Footing Eccentricity" Margin="5" Visibility="Visible">
                                     <Grid>
-                                        <StackPanel>
-                                            <StackPanel Orientation="Horizontal" Margin="0 2" HorizontalAlignment="Right">
-                                                <Label Content="Eccentricity X: " HorizontalAlignment="Right"/>
-                                                <TextBox Width="80" Height="20" Margin="0 0 30 0"/>
-                                            </StackPanel>
-                                            <StackPanel Orientation="Horizontal" Margin="0 2" HorizontalAlignment="Right">
-                                                <Label Content="Eccentricity y: " HorizontalAlignment="Right"/>
-                                                <TextBox Width="80" Height="20" Margin="0 0 30 0"/>
-                                            </StackPanel>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
 
-                                        </StackPanel>
+                                        <Grid Grid.Column="0">
+                                            <StackPanel>
+                                                <StackPanel Orientation="Horizontal" Margin="0 2" HorizontalAlignment="Left">
+                                                    <Label Content="Eccentricity X: " HorizontalAlignment="Right"/>
+                                                    <xctk:DecimalUpDown Width="80" Height="20" Margin="0 0 30 0" Value="0.00" Increment="50"/>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal" Margin="0 2" HorizontalAlignment="Left">
+                                                    <Label Content="Eccentricity y: " HorizontalAlignment="Right"/>
+                                                    <xctk:DecimalUpDown Width="80" Height="20" Margin="0 0 30 0" Value="0.00" Increment="50"/>
+                                                </StackPanel>
+                                            </StackPanel>
+                                        </Grid>
+                                        <Grid Grid.Column="1">
+                                            <StackPanel>
+                                                <StackPanel Orientation="Horizontal" Margin="0 0 0 2">
+                                                    <RadioButton Content="1" GroupName="eccPos" Style="{StaticResource RadioButtonToToggleButton}" Width="20" Margin="2 0"/>
+                                                    <RadioButton Content="2" GroupName="eccPos" Style="{StaticResource RadioButtonToToggleButton}" Width="20" Margin="2 0"/>
+                                                    <RadioButton Content="3" GroupName="eccPos" Style="{StaticResource RadioButtonToToggleButton}" Width="20" Margin="2 0"/>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal" Margin="0 0 0 2">
+                                                    <RadioButton Content="4" GroupName="eccPos" Style="{StaticResource RadioButtonToToggleButton}" Width="20" Margin="2 0"/>
+                                                    <RadioButton Content="5" GroupName="eccPos" Style="{StaticResource RadioButtonToToggleButton}" Width="20" Margin="2 0" IsChecked="True"/>
+                                                    <RadioButton Content="6" GroupName="eccPos" Style="{StaticResource RadioButtonToToggleButton}" Width="20" Margin="2 0"/>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal" Margin="0 0 0 2">
+                                                    <RadioButton Content="7" GroupName="eccPos" Style="{StaticResource RadioButtonToToggleButton}" Width="20" Margin="2 0"/>
+                                                    <RadioButton Content="8" GroupName="eccPos" Style="{StaticResource RadioButtonToToggleButton}" Width="20" Margin="2 0"/>
+                                                    <RadioButton Content="9" GroupName="eccPos" Style="{StaticResource RadioButtonToToggleButton}" Width="20" Margin="2 0"/>
+                                                </StackPanel>
+                                            </StackPanel>
+                                        </Grid>
                                     </Grid>
 
                                 </GroupBox>
@@ -175,56 +237,10 @@
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                         <Label Content="Rebar Dia: " Width="100"/>
                                         <TextBox Text="12" Width="100" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
-                                        <!--<TextBox Text="12" Width="100" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" IsEnabled="{Binding ElementName=checkbox01, Path=IsChecked}"/>-->
-                                        <!--<CheckBox x:Name="checkbox01" IsChecked="True"/>-->
                                     </StackPanel>
                                 </StackPanel>
-
-
                             </GroupBox>
 
-                            <!--<GroupBox Header="Concrete/Rebar Properties">
-                                <StackPanel>
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition/>
-                                            <ColumnDefinition/>
-                                        </Grid.ColumnDefinitions>
-                                        <Grid Grid.Column="0" ShowGridLines="True">
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="Auto"/>
-                                            </Grid.RowDefinitions>
-                                            <Grid Grid.Row="0" HorizontalAlignment="Right">
-                                                <Label Content="Concrete: "/>
-                                            </Grid>
-                                            <Grid Grid.Row="1" HorizontalAlignment="Right">
-                                                <Label Content="Steel: "/>
-                                            </Grid>
-                                            <Grid Grid.Row="2" HorizontalAlignment="Right">
-                                                <Label Content="Rebar: "/>
-                                            </Grid>
-                                        </Grid>
-                                        <Grid Grid.Column="1" ShowGridLines="True">
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="Auto"/>
-                                            </Grid.RowDefinitions>
-                                            <Grid Grid.Row="0" HorizontalAlignment="Stretch">
-                                                <TextBox/>
-                                            </Grid>
-                                            <Grid Grid.Row="1" HorizontalAlignment="Stretch">
-                                                <TextBox/>
-                                            </Grid>
-                                            <Grid Grid.Row="2" HorizontalAlignment="Stretch">
-                                                <TextBox/>
-                                            </Grid>
-                                        </Grid>
-                                    </Grid>
-                                </StackPanel>
-                            </GroupBox>-->
                         </Grid>
                         <Grid Grid.Row="1" Margin="5">
                             <GroupBox Header="Soil Properties"/>
@@ -232,7 +248,45 @@
                     </Grid>
                 </GroupBox>
                 <GroupBox x:Name="optionsGroupBox" Header="Options" Margin="5" Visibility="{Binding ElementName=selectionOptions, Path=IsChecked, Converter={StaticResource selectedItemToTemplateVisibilityConverter} }">
-                    
+                    <Grid>
+                        <GroupBox Header="General" Padding="10 0">
+                            <StackPanel>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 0 0 5">
+                                    <Label Content="User Defined Rebar Min. Spacing"/>
+                                    <CheckBox x:Name="enableSpacing" VerticalAlignment="Center" IsChecked="False"/>
+                                    <TextBox Width="100" Margin="10 0 0 0" IsEnabled="{Binding ElementName=enableSpacing, Path=IsChecked}"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 0 0 5">
+                                    <Label Content="Lean Concrete Thickness"/>
+                                    <TextBox Width="100" Margin="10 0 0 0"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 0 0 5">
+                                    <Label Content=" "/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 0 0 5">
+                                    <Label Content="Rotation Prevented Along X Direction"/>
+                                    <CheckBox VerticalAlignment="Center"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 0 0 5">
+                                    <Label Content="Rotation Prevented Along Y Direction"/>
+                                    <CheckBox VerticalAlignment="Center"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 0 0 5">
+                                    <Label Content="Depth Increment Step:"/>
+                                    <TextBox Width="100" Margin="10 0 0 0"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 0 0 5">
+                                    <Label Content="Size Increment Step:"/>
+                                    <TextBox Width="100" Margin="10 0 0 0"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 0 0 5">
+                                    <Label Content="Bar Spacing Step:"/>
+                                    <TextBox Width="100" Margin="10 0 0 0"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </GroupBox>
+                    </Grid>
+
                 </GroupBox>
 
             </Grid>

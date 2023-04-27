@@ -62,13 +62,14 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type RadioButton}">
-                        <Border Margin="20 0 0 0">
+                        <Border Margin="20 0 0 0" Background="{TemplateBinding Background}">
                             <ContentPresenter Content="{TemplateBinding Content}"/>
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsChecked" Value="True">
                                 <Setter Property="FontWeight" Value="Bold"/>
                                 <Setter Property="Foreground" Value="Blue"/>
+                                <Setter Property="Background" Value="LightBlue"/>
                             </Trigger>
                             <Trigger Property="IsMouseOver" Value="True">
                                 <Setter Property="FontWeight" Value="DemiBold"/>
@@ -79,6 +80,10 @@
                 </Setter.Value>
             </Setter>
             <Setter Property="FontSize" Value="14"/>
+        </Style>
+
+        <Style TargetType="TextBox">
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
         </Style>
 
     </UserControl.Resources>
@@ -93,14 +98,14 @@
         <Grid Grid.Column="0" Margin="15 0 0 0">
             <StackPanel>
 
-                <Label Content="Geometry" FontSize="18" Margin="0 5 0 0"/>
-                <RadioButton Content="Geometry" x:Name="selectionGeometry" GroupName="Sidebar" Style="{StaticResource RadioButtonStyle}" IsChecked="True"/>
+                <Label Content="Geometry" FontSize="18" Margin="0 10 0 0"/>
+                <RadioButton Content="Geometry" x:Name="selectionGeometry" GroupName="Sidebar" Style="{StaticResource RadioButtonStyle}"/>
                 
-                <Label Content="Analysis" FontSize="18" Margin="0 5 0 0"/>
+                <Label Content="Analysis" FontSize="18" Margin="0 10 0 0"/>
                 <RadioButton Content="Materials" x:Name="selectionMaterials" GroupName="Sidebar" Style="{StaticResource RadioButtonStyle}"/>
-                <RadioButton Content="Options" x:Name="selectionOptions" GroupName="Sidebar" Style="{StaticResource RadioButtonStyle}"/>
+                <RadioButton Content="Options" x:Name="selectionOptions" GroupName="Sidebar" Style="{StaticResource RadioButtonStyle}" IsChecked="True"/>
                 
-                <Label Content="Loads" FontSize="18" Margin="0 5 0 0"/>
+                <Label Content="Loads" FontSize="18" Margin="0 10 0 0"/>
                 <RadioButton Content="Column Loads" x:Name="selectionColumnLoads" GroupName="Sidebar" Style="{StaticResource RadioButtonStyle}"/>
 
             </StackPanel>
@@ -108,7 +113,7 @@
 
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="339"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
@@ -200,45 +205,102 @@
                         </Grid.RowDefinitions>
 
                         <Grid Grid.Row="0" Margin="5">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
-                            <Grid Grid.Row="0" Margin="0 5 0 5">
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                                    <Label Content="Concrete"/>
-                                    <!--<TextBox Text="C30" Width="100" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>-->
-                                    <ComboBox>
-                                        <ComboBoxItem Content="Please select.." IsSelected="True" Foreground="Gray"/>
-                                        <ComboBoxItem Content="option A"/>
-                                        <ComboBoxItem Content="option B"/>
-                                        <ComboBoxItem Content="option C"/>
-                                    </ComboBox>
+                            <GroupBox Header="Concrete/Rebar Properties" Padding="0 10 0 0">
+                                <StackPanel>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 0 0 3">
+                                        <Label Content="Concrete: " Width="100"/>
+                                        <!--<TextBox Text="C30" Width="100" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>-->
+                                        <Button Content="binded to choice" Width="100"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 0 0 3">
+                                        <Label Content="Steel: " Width="100"/>
+                                        <Button Content="binded to choice" Width="100"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 0 0 3">
+                                        <Label Content="Rebar Dia: " Width="100"/>
+                                        <Button Content="Diameter" Width="100"/>
+                                    </StackPanel>
                                 </StackPanel>
-                            </Grid>
-                            <Grid Grid.Row="1" Margin="0 0 0 5">
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                                    <Label Content="Steel"/>
-                                    <TextBox Text="S460" Width="100" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
-                                </StackPanel>
-                            </Grid>
-                            <Grid Grid.Row="2" Margin="0 0 0 5">
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                                    <Label Content="Rebar Dia."/>
-                                    <TextBox Text="12" Width="100" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" IsEnabled="{Binding ElementName=checkbox01, Path=IsChecked}"/>
-                                    <CheckBox x:Name="checkbox01" IsChecked="True"/>
-                                </StackPanel>
-                            </Grid>
+                            </GroupBox>
 
                         </Grid>
-                        <Grid Grid.Row="1">
-
+                        <Grid Grid.Row="1" Margin="5">
+                            <GroupBox Header="Soil Properties">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1.2*"/>
+                                        <ColumnDefinition Width="2*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid Grid.Column="0">
+                                        <StackPanel HorizontalAlignment="Right">
+                                            <Label Content="Ult. Stress of Soil: " Height="27" Margin="0 0 0 3" HorizontalAlignment="Right"/>
+                                            <Label Content="Soil Unit Weight: " Height="27" Margin="0 0 0 3" HorizontalAlignment="Right"/>
+                                            <Label Content="Fill Height: " Height="27" Margin="0 0 0 3" HorizontalAlignment="Right"/>
+                                            <Label Content="Net Bearing Capacity: " Height="27" Margin="0 0 0 3" HorizontalAlignment="Right"/>
+                                            <Label Content="Ultimate Strength Factor: " Height="27" Margin="0 0 0 3" HorizontalAlignment="Right"/>
+                                        </StackPanel>
+                                    </Grid>
+                                    <Grid Grid.Column="1">
+                                        <StackPanel HorizontalAlignment="Left" >
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0 0 0 3">
+                                                <TextBox Height="27" Width="80" Margin="0 0 10 0"/>
+                                                <CheckBox Content="Use member-specific value" VerticalContentAlignment="Center"/>
+                                            </StackPanel>
+                                            <TextBox Height="27" Width="80" HorizontalAlignment="Left" Margin="0 0 0 3"/>
+                                            <Label Content="700" Height="27" Margin="0 0 0 3"/>
+                                            <Label Content="237.40 kN/m2" Height="27" Margin="0 0 0 3"/>
+                                            <Label Content="1.25" Height="27" Margin="0 0 0 3"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </Grid>
+                            </GroupBox>
                         </Grid>
                     </Grid>
                 </GroupBox>
 
                 <GroupBox x:Name="optionsGroupBox" Header="Options" Margin="5" Visibility="{Binding ElementName=selectionOptions, Path=IsChecked, Converter={StaticResource selectedItemToTemplateVisibilityConverter} }">
+                    <Grid>
+                        <GroupBox Header="General" Padding="10 0">
+                            <StackPanel>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 0 0 5">
+                                    <Label Content="User Defined Rebar Min. Spacing"/>
+                                    <CheckBox x:Name="enableSpacing" VerticalAlignment="Center" IsChecked="False"/>
+                                    <TextBox Width="100" Margin="10 0 0 0" IsEnabled="{Binding ElementName=enableSpacing, Path=IsChecked}"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 0 0 5">
+                                    <Label Content="Lean Concrete Thickness"/>
+                                    <TextBox Width="100" Margin="10 0 0 0"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 0 0 5">
+                                    <Label Content=" "/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 0 0 5">
+                                    <Label Content="Rotation Prevented Along X Direction"/>
+                                    <CheckBox VerticalAlignment="Center"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 0 0 5">
+                                    <Label Content="Rotation Prevented Along Y Direction"/>
+                                    <CheckBox VerticalAlignment="Center"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 0 0 5">
+                                    <Label Content="Depth Increment Step:"/>
+                                    <TextBox Width="100" Margin="10 0 0 0"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 0 0 5">
+                                    <Label Content="Size Increment Step:"/>
+                                    <TextBox Width="100" Margin="10 0 0 0"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 0 0 5">
+                                    <Label Content="Bar Spacing Step:"/>
+                                    <TextBox Width="100" Margin="10 0 0 0"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </GroupBox>
+                    </Grid>
+                    
+                    
+                </GroupBox>
+                <GroupBox x:Name="columnLoadGroupBox" Header="Column Load" Margin="5" Visibility="{Binding ElementName=selectionColumnLoads, Path=IsChecked, Converter={StaticResource selectedItemToTemplateVisibilityConverter} }">
                     <Grid>
                         <ContentControl Content="{StaticResource dataGridSample}">
 

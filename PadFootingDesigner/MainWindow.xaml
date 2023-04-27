@@ -20,7 +20,7 @@
     </Window.Resources>
 
     <Grid>
-        <ContentControl Content="{StaticResource padDesignerView}"/>
+        <ContentControl Content="{StaticResource oldpadDesignerView}"/>
     </Grid>
 
 </Window>
