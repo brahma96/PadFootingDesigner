@@ -9,7 +9,7 @@
         xmlns:win="clr-namespace:PadFootingDesigner.Windows"
         mc:Ignorable="d"
         Title="Pad Footing Designer" 
-        Height="506" Width="900" MinHeight="506" MinWidth="900" 
+        Height="600" Width="900" MinHeight="600" MinWidth="900" 
         ResizeMode="CanResizeWithGrip">
 
     <Window.Resources>
