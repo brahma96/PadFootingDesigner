@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace PadFootingDesigner
+namespace PadFootingDesigner.Controls
 {
     /// <summary>
     /// Interaction logic for UserControl1.xaml
@@ -23,7 +23,8 @@ namespace PadFootingDesigner
         public UserControl1()
         {
             InitializeComponent();
-            //DataContext = new UserControl1ViewModel();
+
         }
+
     }
 }

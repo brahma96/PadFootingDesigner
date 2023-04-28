@@ -1,7 +1,5 @@
-﻿using PadFootingDesigner.Commands;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,19 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace PadFootingDesigner
+namespace PadFootingDesigner.Controls
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for PadDesignerView.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class PadDesignerView : UserControl
     {
-        public MainWindow()
+        public PadDesignerView()
         {
             InitializeComponent();
-        
         }
-
     }
-
 }

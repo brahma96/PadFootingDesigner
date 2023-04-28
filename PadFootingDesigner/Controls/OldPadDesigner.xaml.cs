@@ -1,7 +1,6 @@
 ﻿using PadFootingDesigner.Commands;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,19 +14,27 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace PadFootingDesigner
+namespace PadFootingDesigner.Controls
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for OldPadDesigner.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class OldPadDesigner : UserControl
     {
-        public MainWindow()
+        public OldPadDesigner()
         {
             InitializeComponent();
-        
+
+            //this.DataContext = this;
+
+            //SelectShape = new RelayCommand(ExecuteCommandShape);
         }
 
-    }
+        //public ICommand SelectShape { get; set; }
 
+        //public void ExecuteCommandShape(object obj)
+        //{
+        //    MessageBox.Show("Shapes!");
+        //}
+    }
 }
