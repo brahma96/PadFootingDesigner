@@ -8,7 +8,7 @@
              xmlns:conv="clr-namespace:PadFootingDesigner.Converters"
              mc:Ignorable="d" 
              Background="White"
-             d:DesignHeight="600" d:DesignWidth="900">
+             d:DesignHeight="650" d:DesignWidth="900">
 
     <UserControl.Resources>
         <conv:SelectedItemToTemplateVisibilityConverter x:Key="selectedItemToTemplateVisibilityConverter"/>
@@ -88,12 +88,17 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+
 
         <Grid Grid.Column="0" Margin="15 0 0 0">
             <StackPanel>
 
                 <Label Content="Geometry" FontSize="18" Margin="0 10 0 0"/>
-                <RadioButton Content="Geometry" x:Name="selectionGeometry" GroupName="Sidebar" Style="{StaticResource RadioButtonStyle}"/>
+                <RadioButton Content="Geometry" x:Name="selectionGeometry" GroupName="Sidebar" Style="{StaticResource RadioButtonStyle}" IsChecked="True"/>
 
                 <Label Content="Analysis" FontSize="18" Margin="0 10 0 0"/>
                 <RadioButton Content="Materials" x:Name="selectionMaterials" GroupName="Sidebar" Style="{StaticResource RadioButtonStyle}"/>
@@ -101,7 +106,7 @@
                 <RadioButton Content="Options" x:Name="selectionOptions" GroupName="Sidebar" Style="{StaticResource RadioButtonStyle}"/>
 
                 <Label Content="Loads" FontSize="18" Margin="0 10 0 0"/>
-                <RadioButton Content="Column Loads" x:Name="selectionColumnLoads" GroupName="Sidebar" Style="{StaticResource RadioButtonStyle}" IsChecked="True"/>
+                <RadioButton Content="Column Loads" x:Name="selectionColumnLoads" GroupName="Sidebar" Style="{StaticResource RadioButtonStyle}"/>
 
             </StackPanel>
         </Grid>
@@ -127,27 +132,27 @@
                                         <StackPanel>
                                             <StackPanel Orientation="Horizontal" Margin="0 2" HorizontalAlignment="Right">
                                                 <Label Content="Footing Label: " HorizontalAlignment="Right"/>
-                                                <TextBox Width="100" Height="20" Margin="0 0 30 0"/>
+                                                <TextBox Text="{Binding FootingLabel}" Width="100" Height="20" Margin="0 0 30 0"/>
                                             </StackPanel>
                                             <StackPanel Orientation="Horizontal" Margin="0 2" HorizontalAlignment="Right">
                                                 <Label Content="Depth: " HorizontalAlignment="Right"/>
-                                                <TextBox Width="100" Height="20" Margin="0 0 30 0"/>
+                                                <TextBox Text="{Binding Depth}" Width="100" Height="20" Margin="0 0 30 0"/>
                                             </StackPanel>
                                             <StackPanel Orientation="Horizontal" Margin="0 2" HorizontalAlignment="Right">
                                                 <Label Content="Footing Taper Height: " HorizontalAlignment="Right"/>
-                                                <TextBox Width="100" Height="20" Margin="0 0 30 0"/>
+                                                <TextBox Text="{Binding TaperHeight}" Width="100" Height="20" Margin="0 0 30 0"/>
                                             </StackPanel>
                                             <StackPanel Orientation="Horizontal" Margin="0 2" HorizontalAlignment="Right">
                                                 <Label Content="Concrete Cover: " HorizontalAlignment="Right"/>
-                                                <TextBox Width="100" Height="20" Margin="0 0 30 0"/>
+                                                <TextBox Text="{Binding ConcreteCover}" Width="100" Height="20" Margin="0 0 30 0"/>
                                             </StackPanel>
                                             <StackPanel Orientation="Horizontal" Margin="0 2" HorizontalAlignment="Right">
                                                 <Label Content="Lx: " HorizontalAlignment="Right"/>
-                                                <TextBox Width="100" Height="20" Margin="0 0 30 0"/>
+                                                <TextBox Text="{Binding Lx}" Width="100" Height="20" Margin="0 0 30 0"/>
                                             </StackPanel>
                                             <StackPanel Orientation="Horizontal" Margin="0 2" HorizontalAlignment="Right">
                                                 <Label Content="Ly: " HorizontalAlignment="Right"/>
-                                                <TextBox Width="100" Height="20" Margin="0 0 30 0"/>
+                                                <TextBox Text="{Binding Ly}" Width="100" Height="20" Margin="0 0 30 0"/>
                                             </StackPanel>
                                         </StackPanel>
                                     </Grid>
@@ -163,11 +168,11 @@
                                             <StackPanel>
                                                 <StackPanel Orientation="Horizontal" Margin="0 2" HorizontalAlignment="Left">
                                                     <Label Content="Eccentricity X: " HorizontalAlignment="Right"/>
-                                                    <xctk:DecimalUpDown Width="80" Height="20" Margin="0 0 30 0" Value="0.00" Increment="50"/>
+                                                    <xctk:DecimalUpDown Value="{Binding EccentricityX}" Width="80" Height="20" Margin="0 0 30 0" Increment="50"/>
                                                 </StackPanel>
                                                 <StackPanel Orientation="Horizontal" Margin="0 2" HorizontalAlignment="Left">
-                                                    <Label Content="Eccentricity y: " HorizontalAlignment="Right"/>
-                                                    <xctk:DecimalUpDown Width="80" Height="20" Margin="0 0 30 0" Value="0.00" Increment="50"/>
+                                                    <Label Content="Eccentricity Y: " HorizontalAlignment="Right"/>
+                                                    <xctk:DecimalUpDown Value="{Binding EccentricityY}" Width="80" Height="20" Margin="0 0 30 0" Increment="50"/>
                                                 </StackPanel>
                                             </StackPanel>
                                         </Grid>
@@ -180,8 +185,8 @@
                                                 </StackPanel>
                                                 <StackPanel Orientation="Horizontal" Margin="0 0 0 2">
                                                     <RadioButton Content="4" GroupName="eccPos" Style="{StaticResource RadioButtonToToggleButton}" Width="20" Margin="2 0"/>
-                                                    <RadioButton Content="5" GroupName="eccPos" Style="{StaticResource RadioButtonToToggleButton}" Width="20" Margin="2 0" IsChecked="True"/>
-                                                    <RadioButton Content="6" GroupName="eccPos" Style="{StaticResource RadioButtonToToggleButton}" Width="20" Margin="2 0"/>
+                                                    <RadioButton Content="5" GroupName="eccPos" Style="{StaticResource RadioButtonToToggleButton}" Width="20" Margin="2 0" IsChecked="{Binding IsOption5Checked}"/>
+                                                    <RadioButton Content="6" GroupName="eccPos" Style="{StaticResource RadioButtonToToggleButton}" Width="20" Margin="2 0" IsChecked="{Binding IsOption6Checked}"/>
                                                 </StackPanel>
                                                 <StackPanel Orientation="Horizontal" Margin="0 0 0 2">
                                                     <RadioButton Content="7" GroupName="eccPos" Style="{StaticResource RadioButtonToToggleButton}" Width="20" Margin="2 0"/>
@@ -197,7 +202,7 @@
                         </Grid>
                         <Grid Grid.Column="1">
                             <StackPanel>
-                                <GroupBox Header="Column Dimensions" Margin="5">
+                                <GroupBox Header="Column Dimensions" Margin="5" IsEnabled="False">
                                     <Grid>
                                         <StackPanel>
                                             <StackPanel Orientation="Horizontal" Margin="0 2" HorizontalAlignment="Right">
@@ -263,13 +268,13 @@
                                     <Grid Grid.Column="1">
                                         <StackPanel HorizontalAlignment="Left" >
                                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0 0 0 3">
-                                                <TextBox Height="27" Width="80" Margin="0 0 10 0"/>
+                                                <TextBox Text="{Binding UltimateStressOfSoil}" Height="27" Width="80" Margin="0 0 10 0"/>
                                                 <CheckBox Content="Use member-specific value" VerticalContentAlignment="Center"/>
                                             </StackPanel>
-                                            <TextBox Height="27" Width="80" HorizontalAlignment="Left" Margin="0 0 0 3"/>
-                                            <Label Content="700" Height="27" Margin="0 0 0 3"/>
-                                            <Label Content="237.40 kN/m2" Height="27" Margin="0 0 0 3"/>
-                                            <Label Content="1.25" Height="27" Margin="0 0 0 3"/>
+                                            <TextBox Text="{Binding SoilUnitWeight}" Height="27" Width="80" HorizontalAlignment="Left" Margin="0 0 0 3"/>
+                                            <Label Content="{Binding FillHeight}" Height="27" Margin="0 0 0 3"/>
+                                            <Label Content="{Binding BearingCapacity}"  Height="27" Margin="0 0 0 3"/>
+                                            <Label Content="{Binding UltimateStrengthFactor}"  Height="27" Margin="0 0 0 3"/>
                                         </StackPanel>
                                     </Grid>
                                 </Grid>
@@ -375,14 +380,24 @@
 
             </Grid>
             <Grid Grid.Row="1">
-                <GroupBox Header="Design" Margin="5">
-                    <Border BorderBrush="Black" BorderThickness="0.3" Margin="10" Padding="2">
-                        <ScrollViewer VerticalScrollBarVisibility="Visible">
-                            <TextBlock Height="300">
-                            sdncwiee<LineBreak/>sdncwiee<LineBreak/>sdncwiee<LineBreak/>sdncwiee<LineBreak/>sdncwiee<LineBreak/>sdncwiee<LineBreak/>sdncwiee<LineBreak/>sdncwiee<LineBreak/>sdncwiee<LineBreak/>sdncwiee<LineBreak/>sdncwiee<LineBreak/>sdncwiee<LineBreak/>sdncwiee<LineBreak/>sdncwiee<LineBreak/>sdncwiee<LineBreak/>sdncwiee<LineBreak/>sdncwiee<LineBreak/>sdncwiee<LineBreak/>sdncwiee<LineBreak/>sdncwiee<LineBreak/>
-                            </TextBlock>
+                <GroupBox Header="Design" Margin="5" Padding="5">
+                    <Border BorderThickness="0.6" BorderBrush="Gray">
+                        <ScrollViewer VerticalScrollBarVisibility="Visible" CanContentScroll="True">
+                            <!--<TextBlock Height="300" Text="{Binding DesignOutput}">
+                            -->
+                            <!--sdncwiee<LineBreak/>sdncwiee<LineBreak/>sdncwiee<LineBreak/>sdncwiee<LineBreak/>sdncwiee<LineBreak/>sdncwiee<LineBreak/>sdncwiee<LineBreak/>sdncwiee<LineBreak/>sdncwiee<LineBreak/>sdncwiee<LineBreak/>sdncwiee<LineBreak/>sdncwiee<LineBreak/>sdncwiee<LineBreak/>sdncwiee<LineBreak/>sdncwiee<LineBreak/>sdncwiee<LineBreak/>sdncwiee<LineBreak/>sdncwiee<LineBreak/>sdncwiee<LineBreak/>sdncwiee<LineBreak/>-->
+                            <!--
+                            </TextBlock>-->
+                            <DataGrid ItemsSource="{Binding Checkings}" AutoGenerateColumns="False" HeadersVisibility="Column" BorderThickness="0" IsReadOnly="True">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Condition" Width="*" Binding="{Binding Condition}"/>
+                                    <DataGridTextColumn Header="Unit" Width="60" Binding="{Binding Unit}"/>
+                                    <DataGridTextColumn Header="Pass/Fail" Width="150" Binding="{Binding PassOrFail}"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
                         </ScrollViewer>
-                    </Border>
+                    </Border>    
+                    
                 </GroupBox>
             </Grid>
         </Grid>
@@ -403,6 +418,13 @@
 
                 </ContentControl>
             </Grid>
+        </Grid>
+
+        <Grid Grid.Row="1" Grid.ColumnSpan="3" HorizontalAlignment="Right">
+            <StackPanel Orientation="Horizontal">
+                <Button Content="Design" Command="{Binding DesignCommand}" Margin="10" Padding="20 0" Width="110"/>
+                <Button Content="Cancel" Command="{Binding CancelCommand}" Margin="10 10 20 10" Padding="20 0" Width="110"/>
+            </StackPanel>
         </Grid>
 
     </Grid>

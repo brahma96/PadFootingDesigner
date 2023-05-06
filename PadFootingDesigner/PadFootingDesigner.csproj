@@ -83,11 +83,20 @@
     <Compile Include="Controls\PadDesignerView.xaml.cs">
       <DependentUpon>PadDesignerView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\PadDesignerViewModel.cs" />
     <Compile Include="Converters\SelectedItemToTemplateVisibilityConverter.cs" />
     <Compile Include="Controls\UserControl1.xaml.cs">
       <DependentUpon>UserControl1.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\UserControl1ViewModel.cs" />
+    <Compile Include="Design\PadFootingDesign.cs" />
+    <Compile Include="Model\PadFootingModel.cs" />
+    <Compile Include="Parameters\DesignParameters.cs" />
+    <Compile Include="Parameters\InputParameters.cs" />
+    <Compile Include="Parameters\MaterialParameters\ConcreteMaterial.cs" />
+    <Compile Include="Parameters\MaterialParameters\SoilMaterial.cs" />
+    <Compile Include="Parameters\MaterialParameters\SteelMaterial.cs" />
+    <Compile Include="Reinforcement\Rebar.cs" />
     <Compile Include="Windows\DataGridSample.xaml.cs">
       <DependentUpon>DataGridSample.xaml</DependentUpon>
     </Compile>

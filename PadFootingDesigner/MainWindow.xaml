@@ -9,18 +9,20 @@
         xmlns:win="clr-namespace:PadFootingDesigner.Windows"
         mc:Ignorable="d"
         Title="Pad Footing Designer" 
-        Height="600" Width="900" MinHeight="600" MinWidth="900" 
+        Height="650" Width="900" MinHeight="650" MinWidth="900" 
         ResizeMode="CanResizeWithGrip">
 
     <Window.Resources>
         <ctrl:PadDesignerView x:Key="padDesignerView"/>
+        <ctrl:PadDesignerViewModel x:Key="padDesignerViewModel"/>
+
         <ctrl:OldPadDesigner x:Key="oldpadDesignerView"/>
         <win:DataGridSample x:Key="dataGridSample"/>
         <ctrl:UserControl1ViewModel x:Key="abcd"/>
     </Window.Resources>
 
     <Grid>
-        <ContentControl Content="{StaticResource padDesignerView}"/>
+        <ContentControl Content="{StaticResource padDesignerView}" DataContext="{StaticResource padDesignerViewModel}"/>
     </Grid>
 
 </Window>
