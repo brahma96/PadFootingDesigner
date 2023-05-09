@@ -12,6 +12,8 @@ using System.Windows;
 using System.Collections.ObjectModel;
 using PadFootingDesigner.Model;
 using PadFootingDesigner.Design;
+using PadFootingDesigner.Windows;
+using PadFootingDesigner.Controls.MaterialsControl;
 
 namespace PadFootingDesigner.Controls
 {
@@ -36,6 +38,7 @@ namespace PadFootingDesigner.Controls
 
             CancelCommand = new RelayCommand((parameter) => Application.Current.Shutdown());
             DesignCommand = new RelayCommand((parameter) => padDesign.Design());
+            ConcreteCommand = new RelayCommand((parameter) => OpenConcreteSelectionWindow());
 
             //materialsSteel = new ObservableCollection<SteelMaterial>
             //{
@@ -323,6 +326,18 @@ namespace PadFootingDesigner.Controls
 
         public ICommand CancelCommand { get; set; }
         public ICommand DesignCommand { get; set; }
+        public ICommand ConcreteCommand { get; set; }
+        //havent add relaycommand yet
+
+
+        private void OpenConcreteSelectionWindow()
+        {
+            ConcreteSelectionWindow concreteWindow = new ConcreteSelectionWindow()
+            {
+                DataContext = new ConcreteSelectionViewModel()
+            };
+            concreteWindow.Show();
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged(string propertyName)

@@ -98,10 +98,10 @@
             <StackPanel>
 
                 <Label Content="Geometry" FontSize="18" Margin="0 10 0 0"/>
-                <RadioButton Content="Geometry" x:Name="selectionGeometry" GroupName="Sidebar" Style="{StaticResource RadioButtonStyle}" IsChecked="True"/>
+                <RadioButton Content="Geometry" x:Name="selectionGeometry" GroupName="Sidebar" Style="{StaticResource RadioButtonStyle}"/>
 
                 <Label Content="Analysis" FontSize="18" Margin="0 10 0 0"/>
-                <RadioButton Content="Materials" x:Name="selectionMaterials" GroupName="Sidebar" Style="{StaticResource RadioButtonStyle}"/>
+                <RadioButton Content="Materials" x:Name="selectionMaterials" GroupName="Sidebar" Style="{StaticResource RadioButtonStyle}" IsChecked="True"/>
                 
                 <RadioButton Content="Options" x:Name="selectionOptions" GroupName="Sidebar" Style="{StaticResource RadioButtonStyle}"/>
 
@@ -235,7 +235,7 @@
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 0 0 3">
                                         <Label Content="Concrete: " Width="100"/>
                                         <!--<TextBox Text="C30" Width="100" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>-->
-                                        <Button Content="binded to choice" Width="100"/>
+                                        <Button Content="binded to choice" Width="100" Command="{Binding ConcreteCommand}"/>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 0 0 3">
                                         <Label Content="Steel: " Width="100"/>

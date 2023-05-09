@@ -77,6 +77,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Commands\RelayCommand.cs" />
+    <Compile Include="Controls\MaterialsControl\ConcreteSelectionView.xaml.cs">
+      <DependentUpon>ConcreteSelectionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\MaterialsControl\ConcreteSelectionViewModel.cs" />
     <Compile Include="Controls\OldPadDesigner.xaml.cs">
       <DependentUpon>OldPadDesigner.xaml</DependentUpon>
     </Compile>
@@ -97,9 +101,16 @@
     <Compile Include="Parameters\MaterialParameters\SoilMaterial.cs" />
     <Compile Include="Parameters\MaterialParameters\SteelMaterial.cs" />
     <Compile Include="Reinforcement\Rebar.cs" />
+    <Compile Include="Windows\ConcreteSelectionWindow.xaml.cs">
+      <DependentUpon>ConcreteSelectionWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\DataGridSample.xaml.cs">
       <DependentUpon>DataGridSample.xaml</DependentUpon>
     </Compile>
+    <Page Include="Controls\MaterialsControl\ConcreteSelectionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\OldPadDesigner.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -121,6 +132,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Controls\UserControl1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ConcreteSelectionWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
